@@ -7,18 +7,35 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		218A2C78275B8AB6007558A2 /* Controllers in Resources */ = {isa = PBXBuildFile; fileRef = 21AC02B5275B796600AF7E29 /* Controllers */; };
+		218A2C7C275BA934007558A2 /* MailsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218A2C7B275BA934007558A2 /* MailsList.swift */; };
+		218A2C7F275C0DC9007558A2 /* SQLiteORM in Frameworks */ = {isa = PBXBuildFile; productRef = 218A2C7E275C0DC9007558A2 /* SQLiteORM */; };
+		218A2C87275D4D65007558A2 /* AddMailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218A2C86275D4D65007558A2 /* AddMailView.swift */; };
+		218A2C89275D5F7E007558A2 /* MailsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218A2C88275D5F7E007558A2 /* MailsListView.swift */; };
+		218A2C8C275E2B31007558A2 /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = 218A2C8B275E2B31007558A2 /* AlertToast */; };
 		21AC02A0275B6A6100AF7E29 /* NewTest4App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21AC029F275B6A6100AF7E29 /* NewTest4App.swift */; };
 		21AC02A2275B6A6100AF7E29 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21AC02A1275B6A6100AF7E29 /* ContentView.swift */; };
 		21AC02A4275B6A6300AF7E29 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21AC02A3275B6A6300AF7E29 /* Assets.xcassets */; };
 		21AC02A7275B6A6300AF7E29 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21AC02A6275B6A6300AF7E29 /* Preview Assets.xcassets */; };
+		21AC02AF275B6E3500AF7E29 /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = 21AC02AE275B6E3500AF7E29 /* SQLite */; };
+		21AC02B2275B6E5300AF7E29 /* SwiftSMTP in Frameworks */ = {isa = PBXBuildFile; productRef = 21AC02B1275B6E5300AF7E29 /* SwiftSMTP */; };
+		21AC02BC275B7BF900AF7E29 /* models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21AC02BB275B7BF900AF7E29 /* models.swift */; };
+		21AC02BE275B7C0400AF7E29 /* util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21AC02BD275B7C0400AF7E29 /* util.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		218A2C7B275BA934007558A2 /* MailsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailsList.swift; sourceTree = "<group>"; };
+		218A2C86275D4D65007558A2 /* AddMailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMailView.swift; sourceTree = "<group>"; };
+		218A2C88275D5F7E007558A2 /* MailsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailsListView.swift; sourceTree = "<group>"; };
 		21AC029C275B6A6100AF7E29 /* NewTest4.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewTest4.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		21AC029F275B6A6100AF7E29 /* NewTest4App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTest4App.swift; sourceTree = "<group>"; };
 		21AC02A1275B6A6100AF7E29 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		21AC02A3275B6A6300AF7E29 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		21AC02A6275B6A6300AF7E29 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		21AC02B3275B791C00AF7E29 /* NewTest4 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = NewTest4; sourceTree = "<group>"; };
+		21AC02B5275B796600AF7E29 /* Controllers */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Controllers; sourceTree = "<group>"; };
+		21AC02BB275B7BF900AF7E29 /* models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = models.swift; sourceTree = "<group>"; };
+		21AC02BD275B7C0400AF7E29 /* util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = util.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -26,12 +43,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				218A2C7F275C0DC9007558A2 /* SQLiteORM in Frameworks */,
+				218A2C8C275E2B31007558A2 /* AlertToast in Frameworks */,
+				21AC02B2275B6E5300AF7E29 /* SwiftSMTP in Frameworks */,
+				21AC02AF275B6E3500AF7E29 /* SQLite in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		218A2C7A275BA90C007558A2 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				218A2C7B275BA934007558A2 /* MailsList.swift */,
+				218A2C86275D4D65007558A2 /* AddMailView.swift */,
+				218A2C88275D5F7E007558A2 /* MailsListView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		21AC0293275B6A6100AF7E29 = {
 			isa = PBXGroup;
 			children = (
@@ -51,8 +82,12 @@
 		21AC029E275B6A6100AF7E29 /* NewTest4 */ = {
 			isa = PBXGroup;
 			children = (
+				218A2C7A275BA90C007558A2 /* Views */,
+				21AC02BA275B7BE100AF7E29 /* Database */,
 				21AC029F275B6A6100AF7E29 /* NewTest4App.swift */,
 				21AC02A1275B6A6100AF7E29 /* ContentView.swift */,
+				21AC02B5275B796600AF7E29 /* Controllers */,
+				21AC02B3275B791C00AF7E29 /* NewTest4 */,
 				21AC02A3275B6A6300AF7E29 /* Assets.xcassets */,
 				21AC02A5275B6A6300AF7E29 /* Preview Content */,
 			);
@@ -65,6 +100,15 @@
 				21AC02A6275B6A6300AF7E29 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		21AC02BA275B7BE100AF7E29 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				21AC02BB275B7BF900AF7E29 /* models.swift */,
+				21AC02BD275B7C0400AF7E29 /* util.swift */,
+			);
+			path = Database;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -83,6 +127,12 @@
 			dependencies = (
 			);
 			name = NewTest4;
+			packageProductDependencies = (
+				21AC02AE275B6E3500AF7E29 /* SQLite */,
+				21AC02B1275B6E5300AF7E29 /* SwiftSMTP */,
+				218A2C7E275C0DC9007558A2 /* SQLiteORM */,
+				218A2C8B275E2B31007558A2 /* AlertToast */,
+			);
 			productName = NewTest4;
 			productReference = 21AC029C275B6A6100AF7E29 /* NewTest4.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +161,12 @@
 				Base,
 			);
 			mainGroup = 21AC0293275B6A6100AF7E29;
+			packageReferences = (
+				21AC02AD275B6E3500AF7E29 /* XCRemoteSwiftPackageReference "SQLite" */,
+				21AC02B0275B6E5300AF7E29 /* XCRemoteSwiftPackageReference "Swift-SMTP" */,
+				218A2C7D275C0DC9007558A2 /* XCRemoteSwiftPackageReference "sqlite-orm-swift" */,
+				218A2C8A275E2B31007558A2 /* XCRemoteSwiftPackageReference "AlertToast" */,
+			);
 			productRefGroup = 21AC029D275B6A6100AF7E29 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -126,6 +182,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				21AC02A7275B6A6300AF7E29 /* Preview Assets.xcassets in Resources */,
+				218A2C78275B8AB6007558A2 /* Controllers in Resources */,
 				21AC02A4275B6A6300AF7E29 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -138,7 +195,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				21AC02A2275B6A6100AF7E29 /* ContentView.swift in Sources */,
+				21AC02BC275B7BF900AF7E29 /* models.swift in Sources */,
+				218A2C89275D5F7E007558A2 /* MailsListView.swift in Sources */,
 				21AC02A0275B6A6100AF7E29 /* NewTest4App.swift in Sources */,
+				21AC02BE275B7C0400AF7E29 /* util.swift in Sources */,
+				218A2C7C275BA934007558A2 /* MailsList.swift in Sources */,
+				218A2C87275D4D65007558A2 /* AddMailView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,7 +348,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -315,7 +377,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -341,6 +403,64 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		218A2C7D275C0DC9007558A2 /* XCRemoteSwiftPackageReference "sqlite-orm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/fnc12/sqlite-orm-swift";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		218A2C8A275E2B31007558A2 /* XCRemoteSwiftPackageReference "AlertToast" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/elai950/AlertToast.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		21AC02AD275B6E3500AF7E29 /* XCRemoteSwiftPackageReference "SQLite" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/stephencelis/SQLite.swift";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		21AC02B0275B6E5300AF7E29 /* XCRemoteSwiftPackageReference "Swift-SMTP" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Kitura/Swift-SMTP";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		218A2C7E275C0DC9007558A2 /* SQLiteORM */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 218A2C7D275C0DC9007558A2 /* XCRemoteSwiftPackageReference "sqlite-orm-swift" */;
+			productName = SQLiteORM;
+		};
+		218A2C8B275E2B31007558A2 /* AlertToast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 218A2C8A275E2B31007558A2 /* XCRemoteSwiftPackageReference "AlertToast" */;
+			productName = AlertToast;
+		};
+		21AC02AE275B6E3500AF7E29 /* SQLite */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 21AC02AD275B6E3500AF7E29 /* XCRemoteSwiftPackageReference "SQLite" */;
+			productName = SQLite;
+		};
+		21AC02B1275B6E5300AF7E29 /* SwiftSMTP */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 21AC02B0275B6E5300AF7E29 /* XCRemoteSwiftPackageReference "Swift-SMTP" */;
+			productName = SwiftSMTP;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 21AC0294275B6A6100AF7E29 /* Project object */;
 }

@@ -7,10 +7,17 @@
 
 import SwiftUI
 
+func test(){
+    print("lolka")
+}
+
 struct ContentView: View {
+    
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        ZStack {
+            Color(.systemBackground)
+            MailsListView()
+        }
     }
 }
 
