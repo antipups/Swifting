@@ -73,14 +73,16 @@ class Mails: Model {
         return true
     }
 
-    func get_mails() -> AnySequence<Row>? {
-//        for mail_ in try! db?.prepare(mails) ?? [] {
-//            print(mail_.login)
-//        }
-        return try! db?.prepare(mails)
-//        try! db?.prepare(mails).forEach{mail_ in
-//            print(try! mail_.get(mail))
-//        }
+    func get_mails() -> Array<String> {
+        var mails_: Array<String> = Array()
+        try! db?.prepare(mails).forEach { mail_ in
+            mails_.append(mail_[mail])
+        }
+        return mails_
+    }
+    
+    func get_password(login: String) -> String {
+        return try! db?.pluck(mails.select(password).filter(mail == login))?[password] as! String
     }
 }
 

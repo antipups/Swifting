@@ -7,12 +7,24 @@
 
 import SwiftUI
 
+
+
 struct MailsListView: View {
+    let mails = get_mails()
+    
     var body: some View {
         NavigationView {
             Form {
                 Section {
-                    
+                    List
+                    {
+                        ForEach(mails, id: \.self) {mail_ in
+                            NavigationLink(destination: MailView(messages:  [1, 2])) {
+                                Image(systemName: "mail")
+                                Text(mail_)
+                            }.foregroundColor(.blue)
+                        }
+                    }
                 }
                 Section {
                     NavigationLink(destination: AddMailView()) {
