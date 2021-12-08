@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct MailView: View {
-    var messages: [Any]
+    var login: String
+    var messages: [Any]!
     
     var body: some View {
 //        NavigationView {
@@ -26,6 +27,6 @@ struct MailView: View {
 
 struct MailView_Previews: PreviewProvider {
     static var previews: some View {
-        MailView(messages: [1, 1])
+        MailView(login: "test")
     }
 }

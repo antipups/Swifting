@@ -12,7 +12,7 @@ func test(){
 }
 
 struct ContentView: View {
-    
+    let a = crypt(text: "sex")
     var body: some View {
         ZStack {
             Color(.systemBackground)

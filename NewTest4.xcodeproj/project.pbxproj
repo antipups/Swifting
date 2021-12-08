@@ -13,7 +13,9 @@
 		218A2C89275D5F7E007558A2 /* MailsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218A2C88275D5F7E007558A2 /* MailsListView.swift */; };
 		218A2C8C275E2B31007558A2 /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = 218A2C8B275E2B31007558A2 /* AlertToast */; };
 		218A2C8E275E4B06007558A2 /* MailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218A2C8D275E4B06007558A2 /* MailView.swift */; };
-		218A2CBA27600D3D007558A2 /* services.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218A2CB927600D3D007558A2 /* services.swift */; };
+		218A2CBA27600D3D007558A2 /* getMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218A2CB927600D3D007558A2 /* getMessages.swift */; };
+		218A2CBD2760CBBA007558A2 /* cryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218A2CBC2760CBBA007558A2 /* cryption.swift */; };
+		218A2CC12760DAB8007558A2 /* CryptorRSA in Frameworks */ = {isa = PBXBuildFile; productRef = 218A2CC02760DAB8007558A2 /* CryptorRSA */; };
 		21AC02A0275B6A6100AF7E29 /* NewTest4App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21AC029F275B6A6100AF7E29 /* NewTest4App.swift */; };
 		21AC02A2275B6A6100AF7E29 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21AC02A1275B6A6100AF7E29 /* ContentView.swift */; };
 		21AC02A4275B6A6300AF7E29 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21AC02A3275B6A6300AF7E29 /* Assets.xcassets */; };
@@ -29,7 +31,8 @@
 		218A2C86275D4D65007558A2 /* AddMailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMailView.swift; sourceTree = "<group>"; };
 		218A2C88275D5F7E007558A2 /* MailsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailsListView.swift; sourceTree = "<group>"; };
 		218A2C8D275E4B06007558A2 /* MailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailView.swift; sourceTree = "<group>"; };
-		218A2CB927600D3D007558A2 /* services.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = services.swift; sourceTree = "<group>"; };
+		218A2CB927600D3D007558A2 /* getMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = getMessages.swift; sourceTree = "<group>"; };
+		218A2CBC2760CBBA007558A2 /* cryption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cryption.swift; sourceTree = "<group>"; };
 		21AC029C275B6A6100AF7E29 /* NewTest4.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewTest4.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		21AC029F275B6A6100AF7E29 /* NewTest4App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTest4App.swift; sourceTree = "<group>"; };
 		21AC02A1275B6A6100AF7E29 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -48,6 +51,7 @@
 				218A2C7F275C0DC9007558A2 /* SQLiteORM in Frameworks */,
 				218A2C8C275E2B31007558A2 /* AlertToast in Frameworks */,
 				21AC02B2275B6E5300AF7E29 /* SwiftSMTP in Frameworks */,
+				218A2CC12760DAB8007558A2 /* CryptorRSA in Frameworks */,
 				21AC02AF275B6E3500AF7E29 /* SQLite in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -64,6 +68,15 @@
 				218A2C8D275E4B06007558A2 /* MailView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		218A2CBB2760CB6E007558A2 /* services */ = {
+			isa = PBXGroup;
+			children = (
+				218A2CB927600D3D007558A2 /* getMessages.swift */,
+				218A2CBC2760CBBA007558A2 /* cryption.swift */,
+			);
+			path = services;
 			sourceTree = "<group>";
 		};
 		21AC0293275B6A6100AF7E29 = {
@@ -85,7 +98,7 @@
 		21AC029E275B6A6100AF7E29 /* NewTest4 */ = {
 			isa = PBXGroup;
 			children = (
-				218A2CB927600D3D007558A2 /* services.swift */,
+				218A2CBB2760CB6E007558A2 /* services */,
 				218A2C7A275BA90C007558A2 /* Views */,
 				21AC02BA275B7BE100AF7E29 /* Database */,
 				21AC029F275B6A6100AF7E29 /* NewTest4App.swift */,
@@ -135,6 +148,7 @@
 				21AC02B1275B6E5300AF7E29 /* SwiftSMTP */,
 				218A2C7E275C0DC9007558A2 /* SQLiteORM */,
 				218A2C8B275E2B31007558A2 /* AlertToast */,
+				218A2CC02760DAB8007558A2 /* CryptorRSA */,
 			);
 			productName = NewTest4;
 			productReference = 21AC029C275B6A6100AF7E29 /* NewTest4.app */;
@@ -165,10 +179,11 @@
 			);
 			mainGroup = 21AC0293275B6A6100AF7E29;
 			packageReferences = (
-				21AC02AD275B6E3500AF7E29 /* XCRemoteSwiftPackageReference "SQLite.swift" */,
+				21AC02AD275B6E3500AF7E29 /* XCRemoteSwiftPackageReference "SQLite" */,
 				21AC02B0275B6E5300AF7E29 /* XCRemoteSwiftPackageReference "Swift-SMTP" */,
 				218A2C7D275C0DC9007558A2 /* XCRemoteSwiftPackageReference "sqlite-orm-swift" */,
-				218A2C8A275E2B31007558A2 /* XCRemoteSwiftPackageReference "AlertToast.git" */,
+				218A2C8A275E2B31007558A2 /* XCRemoteSwiftPackageReference "AlertToast" */,
+				218A2CBF2760DAB8007558A2 /* XCRemoteSwiftPackageReference "BlueRSA" */,
 			);
 			productRefGroup = 21AC029D275B6A6100AF7E29 /* Products */;
 			projectDirPath = "";
@@ -197,8 +212,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				21AC02A2275B6A6100AF7E29 /* ContentView.swift in Sources */,
-				218A2CBA27600D3D007558A2 /* services.swift in Sources */,
+				218A2CBA27600D3D007558A2 /* getMessages.swift in Sources */,
 				21AC02BC275B7BF900AF7E29 /* models.swift in Sources */,
+				218A2CBD2760CBBA007558A2 /* cryption.swift in Sources */,
 				218A2C89275D5F7E007558A2 /* MailsListView.swift in Sources */,
 				21AC02A0275B6A6100AF7E29 /* NewTest4App.swift in Sources */,
 				21AC02BE275B7C0400AF7E29 /* util.swift in Sources */,
@@ -417,7 +433,7 @@
 				kind = branch;
 			};
 		};
-		218A2C8A275E2B31007558A2 /* XCRemoteSwiftPackageReference "AlertToast.git" */ = {
+		218A2C8A275E2B31007558A2 /* XCRemoteSwiftPackageReference "AlertToast" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/elai950/AlertToast.git";
 			requirement = {
@@ -425,7 +441,15 @@
 				kind = branch;
 			};
 		};
-		21AC02AD275B6E3500AF7E29 /* XCRemoteSwiftPackageReference "SQLite.swift" */ = {
+		218A2CBF2760DAB8007558A2 /* XCRemoteSwiftPackageReference "BlueRSA" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Kitura/BlueRSA";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		21AC02AD275B6E3500AF7E29 /* XCRemoteSwiftPackageReference "SQLite" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/stephencelis/SQLite.swift";
 			requirement = {
@@ -451,12 +475,17 @@
 		};
 		218A2C8B275E2B31007558A2 /* AlertToast */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 218A2C8A275E2B31007558A2 /* XCRemoteSwiftPackageReference "AlertToast.git" */;
+			package = 218A2C8A275E2B31007558A2 /* XCRemoteSwiftPackageReference "AlertToast" */;
 			productName = AlertToast;
+		};
+		218A2CC02760DAB8007558A2 /* CryptorRSA */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 218A2CBF2760DAB8007558A2 /* XCRemoteSwiftPackageReference "BlueRSA" */;
+			productName = CryptorRSA;
 		};
 		21AC02AE275B6E3500AF7E29 /* SQLite */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 21AC02AD275B6E3500AF7E29 /* XCRemoteSwiftPackageReference "SQLite.swift" */;
+			package = 21AC02AD275B6E3500AF7E29 /* XCRemoteSwiftPackageReference "SQLite" */;
 			productName = SQLite;
 		};
 		21AC02B1275B6E5300AF7E29 /* SwiftSMTP */ = {

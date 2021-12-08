@@ -19,7 +19,7 @@ struct MailsListView: View {
                     List
                     {
                         ForEach(mails, id: \.self) {mail_ in
-                            NavigationLink(destination: MailView(messages:  [1, 2])) {
+                            NavigationLink(destination: MailView(login: mail_)) {
                                 Image(systemName: "mail")
                                 Text(mail_)
                             }.foregroundColor(.blue)
