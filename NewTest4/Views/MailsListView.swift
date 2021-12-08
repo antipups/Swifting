@@ -8,7 +8,6 @@
 import SwiftUI
 
 
-
 struct MailsListView: View {
     let mails = get_mails()
     

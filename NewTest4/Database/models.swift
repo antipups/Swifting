@@ -55,7 +55,16 @@ class Mails: Model {
     override init() {
         super.init()
         createTable()
+//        delete_rows()
     }
+        
+//    func delete_rows() {
+//        print("SEXXX")
+//        let not_need = mails.filter(mail != "Nkl54@mail.ru")
+//        try! db?.run(not_need.delete())
+//    }
+    
+//    func update_table() 
 
     override func createTable() {
         try! db?.run(mails.create(ifNotExists: true) { t in
