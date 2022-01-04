@@ -18,15 +18,28 @@ struct MailView: View {
 
     var body: some View {
         ZStack {
-            List(messages, id: \.id) { mail_ in
-                NavigationLink(destination: Text(mail_.subject)) {
-                    //                Image(systemName: "mail")
-                    VStack(alignment: .leading) {
-                        Text(mail_.from)
-//                        Divider()
-                        Text(mail_.subject).font(.system(size: 13))
+            List {
+                Section {
+                    NavigationLink(destination: SendMailView(login: login)){
+                        HStack {
+                            Image(systemName: "paperplane")
+                            Text("Написать письмо")
+                        }.foregroundColor(.blue)
                     }
-                }.foregroundColor(.blue)
+                }
+                Section {
+                    ForEach(messages, id: \.id) { mail_ in
+                        NavigationLink(destination: Text(mail_.subject)) {
+                            //                Image(systemName: "mail")
+                            VStack(alignment: .leading) {
+                                Text(mail_.from)
+        //                        Divider()
+                                Text(mail_.subject).font(.system(size: 13))
+                            }
+                        }.foregroundColor(.blue)
+                    }
+                }
+                
             }.onAppear { // Prefer, Life cycle method
                 get_messages(login: login) { response in
                     messages = response.messages

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2161FC042761714B0064DE5B /* SendMailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2161FC032761714B0064DE5B /* SendMailView.swift */; };
+		2161FC062761715A0064DE5B /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2161FC052761715A0064DE5B /* MessageView.swift */; };
+		2161FC082761DECF0064DE5B /* workWithFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2161FC072761DECF0064DE5B /* workWithFiles.swift */; };
 		218A2C7C275BA934007558A2 /* MailsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218A2C7B275BA934007558A2 /* MailsList.swift */; };
 		218A2C7F275C0DC9007558A2 /* SQLiteORM in Frameworks */ = {isa = PBXBuildFile; productRef = 218A2C7E275C0DC9007558A2 /* SQLiteORM */; };
 		218A2C87275D4D65007558A2 /* AddMailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218A2C86275D4D65007558A2 /* AddMailView.swift */; };
@@ -25,9 +28,13 @@
 		21AC02B2275B6E5300AF7E29 /* SwiftSMTP in Frameworks */ = {isa = PBXBuildFile; productRef = 21AC02B1275B6E5300AF7E29 /* SwiftSMTP */; };
 		21AC02BC275B7BF900AF7E29 /* models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21AC02BB275B7BF900AF7E29 /* models.swift */; };
 		21AC02BE275B7C0400AF7E29 /* util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21AC02BD275B7C0400AF7E29 /* util.swift */; };
+		21C714302761FC380015B060 /* SwCrypt in Frameworks */ = {isa = PBXBuildFile; productRef = 21C7142F2761FC380015B060 /* SwCrypt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2161FC032761714B0064DE5B /* SendMailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendMailView.swift; sourceTree = "<group>"; };
+		2161FC052761715A0064DE5B /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
+		2161FC072761DECF0064DE5B /* workWithFiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = workWithFiles.swift; sourceTree = "<group>"; };
 		218A2C7B275BA934007558A2 /* MailsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailsList.swift; sourceTree = "<group>"; };
 		218A2C86275D4D65007558A2 /* AddMailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMailView.swift; sourceTree = "<group>"; };
 		218A2C88275D5F7E007558A2 /* MailsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailsListView.swift; sourceTree = "<group>"; };
@@ -53,6 +60,7 @@
 				218A2C7F275C0DC9007558A2 /* SQLiteORM in Frameworks */,
 				218A2C8C275E2B31007558A2 /* AlertToast in Frameworks */,
 				21AC02B2275B6E5300AF7E29 /* SwiftSMTP in Frameworks */,
+				21C714302761FC380015B060 /* SwCrypt in Frameworks */,
 				218A2CC12760DAB8007558A2 /* CryptorRSA in Frameworks */,
 				21AC02AF275B6E3500AF7E29 /* SQLite in Frameworks */,
 			);
@@ -68,6 +76,8 @@
 				218A2C86275D4D65007558A2 /* AddMailView.swift */,
 				218A2C88275D5F7E007558A2 /* MailsListView.swift */,
 				218A2C8D275E4B06007558A2 /* MailView.swift */,
+				2161FC032761714B0064DE5B /* SendMailView.swift */,
+				2161FC052761715A0064DE5B /* MessageView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -78,6 +88,7 @@
 				218A2CB927600D3D007558A2 /* getMessages.swift */,
 				218A2CBC2760CBBA007558A2 /* cryption.swift */,
 				218A2CC22761342D007558A2 /* sendMessage.swift */,
+				2161FC072761DECF0064DE5B /* workWithFiles.swift */,
 			);
 			path = services;
 			sourceTree = "<group>";
@@ -152,6 +163,7 @@
 				218A2C7E275C0DC9007558A2 /* SQLiteORM */,
 				218A2C8B275E2B31007558A2 /* AlertToast */,
 				218A2CC02760DAB8007558A2 /* CryptorRSA */,
+				21C7142F2761FC380015B060 /* SwCrypt */,
 			);
 			productName = NewTest4;
 			productReference = 21AC029C275B6A6100AF7E29 /* NewTest4.app */;
@@ -187,6 +199,7 @@
 				218A2C7D275C0DC9007558A2 /* XCRemoteSwiftPackageReference "sqlite-orm-swift" */,
 				218A2C8A275E2B31007558A2 /* XCRemoteSwiftPackageReference "AlertToast" */,
 				218A2CBF2760DAB8007558A2 /* XCRemoteSwiftPackageReference "BlueRSA" */,
+				21C7142E2761FC380015B060 /* XCRemoteSwiftPackageReference "SwCrypt" */,
 			);
 			productRefGroup = 21AC029D275B6A6100AF7E29 /* Products */;
 			projectDirPath = "";
@@ -219,6 +232,9 @@
 				218A2CBA27600D3D007558A2 /* getMessages.swift in Sources */,
 				21AC02BC275B7BF900AF7E29 /* models.swift in Sources */,
 				218A2CBD2760CBBA007558A2 /* cryption.swift in Sources */,
+				2161FC062761715A0064DE5B /* MessageView.swift in Sources */,
+				2161FC082761DECF0064DE5B /* workWithFiles.swift in Sources */,
+				2161FC042761714B0064DE5B /* SendMailView.swift in Sources */,
 				218A2C89275D5F7E007558A2 /* MailsListView.swift in Sources */,
 				21AC02A0275B6A6100AF7E29 /* NewTest4App.swift in Sources */,
 				21AC02BE275B7C0400AF7E29 /* util.swift in Sources */,
@@ -469,6 +485,14 @@
 				kind = branch;
 			};
 		};
+		21C7142E2761FC380015B060 /* XCRemoteSwiftPackageReference "SwCrypt" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/soyersoyer/SwCrypt";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -496,6 +520,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 21AC02B0275B6E5300AF7E29 /* XCRemoteSwiftPackageReference "Swift-SMTP" */;
 			productName = SwiftSMTP;
+		};
+		21C7142F2761FC380015B060 /* SwCrypt */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 21C7142E2761FC380015B060 /* XCRemoteSwiftPackageReference "SwCrypt" */;
+			productName = SwCrypt;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

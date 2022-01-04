@@ -8,6 +8,7 @@
 import Foundation
 import Cryptor
 import CryptorRSA
+import SwCrypt
 
 
 class To3DES {
@@ -36,6 +37,14 @@ class To3DES {
         }
         return nil
     }
+}
+
+
+func get_key_pair_with_triple_des() -> (String, String, String) {
+    let (privateKey, publicKey) = try! CC.RSA.generateKeyPair(2048)
+    let privateKeyPEM = try SwKeyConvert.PrivateKey.derToPKCS1PEM(privateKey)
+    let publicKeyPEM = SwKeyConvert.PublicKey.derToPKCS8PEM(publicKey)
+    return (privateKeyPEM, publicKeyPEM, To3DES.key_generation())
 }
 
 

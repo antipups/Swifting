@@ -51,9 +51,13 @@ class Mails: Model {
     let mails = Table("Mails")
     var mail = Expression<String>("mail")
     var password = Expression<String>("password")
+    var privateKey = Expression<String>("privateKey")
+    var publicKey = Expression<String>("publicKey")
+    var tripleDesKey = Expression<String>("tripleDesKey")
 
     override init() {
         super.init()
+//        try! db?.run(mails.drop())
         createTable()
 //        delete_rows()
     }
@@ -70,12 +74,20 @@ class Mails: Model {
         try! db?.run(mails.create(ifNotExists: true) { t in
             t.column(mail, primaryKey: true)
             t.column(password)
+            t.column(privateKey)
+            t.column(publicKey)
+            t.column(tripleDesKey)
         })
     }
 
     func add_mail(login: String, password: String) -> Bool {
         do {
-            try db?.run(mails.insert(mail <- login, self.password <- password))
+            let keys = get_key_pair_with_triple_des()
+            try db?.run(mails.insert(mail <- login,
+                    self.password <- password,
+                    publicKey <- keys.0,
+                    privateKey <- keys.1,
+                    tripleDesKey <- keys.2))
         } catch {
             return false
         }
@@ -91,7 +103,7 @@ class Mails: Model {
     }
     
     func get_password(login: String) -> String {
-        return try! db?.pluck(mails.select(password).filter(mail == login))?[password] as! String
+        try! db?.pluck(mails.select(password).filter(mail == login))?[password] as! String
     }
 }
 

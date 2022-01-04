@@ -24,8 +24,8 @@ struct Response: Codable {
 
 func get_messages(login: String, completion: @escaping ((Response) -> Void)) {
 //    get_password(login: login)
-//    let password = get_password(login: login)
-    let url = "http://127.0.0.1:8000/get_messages?login=\(login)&password=3HtPebG9ju8rdqbhqAfE"
+    let password = get_password(login: login)
+    let url = "http://127.0.0.1:8000/get_messages?login=\(login)&password=\(password)"
 
     URLSession.shared.dataTask(with: URL(string: url)!, completionHandler: {data, response, error in
         guard let data = data, error == nil else {
