@@ -22,7 +22,7 @@ struct SendMailView: View {
         Form {
             Section {
                 TextField("Куда отправить", text: $receiver)
-                    .disableAutocorrection(true)
+                        .disableAutocorrection(true)
                 TextField("Тема письма", text: $subject)
                 TextField("Тело письма", text: $message_body)
 //                    .frame(height: UIScreen.main.bounds.size.height * 0.5)
@@ -34,19 +34,8 @@ struct SendMailView: View {
                         Image(systemName: "paperclip")
                     }.foregroundColor(.blue)
                 }
-                .fileImporter(isPresented: $openfile, allowedContentTypes: [.pdf]) { (res) in
-                    do {
-                        let fileurl = try res.get()
-                        print(fileurl)
-                        
-                        self.filename = fileurl.lastPathComponent
-                        print(self.filename)
-                    } catch {
-                        
-                    }
-                }
-                
             }
+
             Section {
                 Button {
                     print("tap")
@@ -59,6 +48,11 @@ struct SendMailView: View {
             }
         }
         .navigationTitle("Отправка письма")
+        .fileImporter(
+            isPresented: $openfile,
+            allowedContentTypes: [.pdf],
+            onCompletion: read_file
+        )
     }
 }
 

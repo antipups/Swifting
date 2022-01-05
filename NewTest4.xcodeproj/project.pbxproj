@@ -52,6 +52,8 @@
 		21AC02BB275B7BF900AF7E29 /* models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = models.swift; sourceTree = "<group>"; };
 		21AC02BD275B7C0400AF7E29 /* util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = util.swift; sourceTree = "<group>"; };
 		21CCC67B2784AE63005FD3D2 /* config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = config.swift; sourceTree = "<group>"; };
+		21CCC67D2785A2F8005FD3D2 /* NewTest4.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NewTest4.entitlements; sourceTree = "<group>"; };
+		21D934E52785B53E00C1F9CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +116,8 @@
 		21AC029E275B6A6100AF7E29 /* NewTest4 */ = {
 			isa = PBXGroup;
 			children = (
+				21D934E52785B53E00C1F9CA /* Info.plist */,
+				21CCC67D2785A2F8005FD3D2 /* NewTest4.entitlements */,
 				218A2CBB2760CB6E007558A2 /* services */,
 				218A2C7A275BA90C007558A2 /* Views */,
 				21AC02BA275B7BE100AF7E29 /* Database */,
@@ -372,12 +376,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = NewTest4/NewTest4.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"NewTest4/Preview Content\"";
 				DEVELOPMENT_TEAM = GG74RZ239K;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NewTest4/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -401,12 +407,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = NewTest4/NewTest4.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"NewTest4/Preview Content\"";
 				DEVELOPMENT_TEAM = GG74RZ239K;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NewTest4/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
