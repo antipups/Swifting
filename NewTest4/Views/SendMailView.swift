@@ -22,6 +22,7 @@ struct SendMailView: View {
         Form {
             Section {
                 TextField("Куда отправить", text: $receiver)
+                    .disableAutocorrection(true)
                 TextField("Тема письма", text: $subject)
                 TextField("Тело письма", text: $message_body)
 //                    .frame(height: UIScreen.main.bounds.size.height * 0.5)

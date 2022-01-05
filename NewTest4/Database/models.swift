@@ -5,14 +5,15 @@ import SQLite
 let path = try! FileManager
         .default
         .url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
-        .appendingPathComponent("db.sqlite").absoluteString
+        .appendingPathComponent("db.sqlite")
+        .absoluteString
 
 
 class Model {
-    var db: Connection?
-    init() {
-        db = try! Connection(path)
-    }
+    var db: Connection = try! Connection(path)
+//    init() {
+//        db = try! Connection(path)
+//    }
     func createTable() {}
 }
 
@@ -28,18 +29,18 @@ class Session: Model {
     }
 
     override func createTable() {
-        try! db?.run(session.create(ifNotExists: true) { t in
+        try! db.run(session.create(ifNotExists: true) { t in
             t.column(key, primaryKey: true)
             t.column(value)
         })
     }
 
     func get(key: String) -> String {
-        try! db!.scalar(session.select(value).filter(self.key == key))
+        try! db.scalar(session.select(value).filter(self.key == key))
     }
 
     func set(key: String, value: String) {
-        try! db?.run(session.upsert(self.key <- key,
+        try! db.run(session.upsert(self.key <- key,
                 self.value <- value,
                 onConflictOf: self.value))
     }
@@ -71,7 +72,7 @@ class Mails: Model {
 //    func update_table() 
 
     override func createTable() {
-        try! db?.run(mails.create(ifNotExists: true) { t in
+        try! db.run(mails.create(ifNotExists: true) { t in
             t.column(mail, primaryKey: true)
             t.column(password)
             t.column(privateKey)
@@ -83,7 +84,7 @@ class Mails: Model {
     func add_mail(login: String, password: String) -> Bool {
         do {
             let keys = get_key_pair_with_triple_des()
-            try db?.run(mails.insert(mail <- login,
+            try db.run(mails.insert(mail <- login,
                     self.password <- password,
                     publicKey <- keys.0,
                     privateKey <- keys.1,
@@ -96,14 +97,19 @@ class Mails: Model {
 
     func get_mails() -> Array<String> {
         var mails_: Array<String> = Array()
-        try! db?.prepare(mails).forEach { mail_ in
+        try! db.prepare(mails).forEach { mail_ in
             mails_.append(mail_[mail])
         }
         return mails_
     }
     
     func get_password(login: String) -> String {
-        try! db?.pluck(mails.select(password).filter(mail == login))?[password] as! String
+        try! db.pluck(mails.select(password).filter(mail == login))?[password] as! String
+    }
+    
+    func delete_mail(mail_: String) {
+        let mail_to_delete = mails.filter(mail == mail_)
+        try! db.run(mail_to_delete.delete())
     }
 }
 

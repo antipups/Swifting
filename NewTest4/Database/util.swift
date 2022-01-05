@@ -28,3 +28,8 @@ func get_mails() -> Array<String> {
 func get_password(login: String) -> String {
     return Mails().get_password(login: login)
 }
+
+
+func delete_mail(mail: String) {
+    Mails().delete_mail(mail_: mail)
+}

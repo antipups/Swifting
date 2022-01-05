@@ -29,6 +29,7 @@
 		21AC02BC275B7BF900AF7E29 /* models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21AC02BB275B7BF900AF7E29 /* models.swift */; };
 		21AC02BE275B7C0400AF7E29 /* util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21AC02BD275B7C0400AF7E29 /* util.swift */; };
 		21C714302761FC380015B060 /* SwCrypt in Frameworks */ = {isa = PBXBuildFile; productRef = 21C7142F2761FC380015B060 /* SwCrypt */; };
+		21CCC67C2784AE63005FD3D2 /* config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CCC67B2784AE63005FD3D2 /* config.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 		21AC02B3275B791C00AF7E29 /* NewTest4 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = NewTest4; sourceTree = "<group>"; };
 		21AC02BB275B7BF900AF7E29 /* models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = models.swift; sourceTree = "<group>"; };
 		21AC02BD275B7C0400AF7E29 /* util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = util.swift; sourceTree = "<group>"; };
+		21CCC67B2784AE63005FD3D2 /* config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = config.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +122,7 @@
 				21AC02B3275B791C00AF7E29 /* NewTest4 */,
 				21AC02A3275B6A6300AF7E29 /* Assets.xcassets */,
 				21AC02A5275B6A6300AF7E29 /* Preview Content */,
+				21CCC67B2784AE63005FD3D2 /* config.swift */,
 			);
 			path = NewTest4;
 			sourceTree = "<group>";
@@ -230,6 +233,7 @@
 				21AC02A2275B6A6100AF7E29 /* ContentView.swift in Sources */,
 				218A2CC32761342D007558A2 /* sendMessage.swift in Sources */,
 				218A2CBA27600D3D007558A2 /* getMessages.swift in Sources */,
+				21CCC67C2784AE63005FD3D2 /* config.swift in Sources */,
 				21AC02BC275B7BF900AF7E29 /* models.swift in Sources */,
 				218A2CBD2760CBBA007558A2 /* cryption.swift in Sources */,
 				2161FC062761715A0064DE5B /* MessageView.swift in Sources */,

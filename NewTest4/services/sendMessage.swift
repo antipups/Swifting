@@ -25,6 +25,7 @@ func check_mail(login: String, password: String) -> Bool {
 
     if server == "Error" {
         return false
+        
     } else {
         do {
             let mail = Mail(

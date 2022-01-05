@@ -9,7 +9,7 @@ import SwiftUI
 
 
 struct MailsListView: View {
-    let mails = get_mails()
+    @State private var mails = get_mails()
     
     var body: some View {
         NavigationView {
@@ -21,7 +21,17 @@ struct MailsListView: View {
                             NavigationLink(destination: MailView(login: mail_)) {
                                 Image(systemName: "mail")
                                 Text(mail_)
-                            }.foregroundColor(.blue)
+                            }
+                            .foregroundColor(.blue)
+                            .swipeActions {
+                                Button(action: {
+                                    delete_mail(mail: mail_)
+                                    let index: Int = mails.firstIndex(of: mail_)!
+                                    mails.remove(at: index)
+                                }) {
+                                    Image(systemName: "trash")
+                                }.tint(.red)
+                            }
                         }
                     }
                 }
@@ -31,10 +41,19 @@ struct MailsListView: View {
                         Text("Добавить почту")
                     }.foregroundColor(.blue)
                 }
+                
+            }
+            .onAppear {
+                mails = get_mails()
             }
             .navigationBarTitle("Выберите почту")
+            .refreshable {
+                mails = get_mails()
+            }
+            
         }
     }
+    
 }
 
 
