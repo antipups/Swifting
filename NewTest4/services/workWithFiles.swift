@@ -9,6 +9,9 @@ import Foundation
 
 
 func read_file(_ result: Result<URL, Error>){
+
+    var arraybytes: NSData!
+
     do {
 
         let selectedFile: URL
@@ -24,8 +27,8 @@ func read_file(_ result: Result<URL, Error>){
             // get access to open file
             if selectedFile.startAccessingSecurityScopedResource() {
                 let path = selectedFile.path
-                let data = NSData(contentsOfFile: path)
-                print(data)
+                arraybytes = try NSData(contentsOfFile: path)
+//                print(arraybytes?.base64EncodedString())
                 selectedFile.stopAccessingSecurityScopedResource()
             }
 
@@ -37,4 +40,12 @@ func read_file(_ result: Result<URL, Error>){
     } catch {
         print("error")
     }
+
+    if var files = session["files"] {
+        (files as AnyObject).append(arraybytes.base64EncodedString())
+    }
+    else {
+        session["files"] = [arraybytes.base64EncodedString()]
+    }
+    print(session.count)
 }

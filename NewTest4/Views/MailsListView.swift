@@ -8,6 +8,9 @@
 import SwiftUI
 
 
+var session: Dictionary<String, Any> = ["temp": "one"]
+
+
 struct MailsListView: View {
     @State private var mails = get_mails()
     
@@ -18,7 +21,7 @@ struct MailsListView: View {
                     List
                     {
                         ForEach(mails, id: \.self) {mail_ in
-                            NavigationLink(destination: MailView(login: mail_)) {
+                            NavigationLink(destination: FoldersView(login: mail_)) {
                                 Image(systemName: "mail")
                                 Text(mail_)
                             }

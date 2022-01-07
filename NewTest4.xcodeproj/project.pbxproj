@@ -10,7 +10,6 @@
 		2161FC042761714B0064DE5B /* SendMailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2161FC032761714B0064DE5B /* SendMailView.swift */; };
 		2161FC062761715A0064DE5B /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2161FC052761715A0064DE5B /* MessageView.swift */; };
 		2161FC082761DECF0064DE5B /* workWithFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2161FC072761DECF0064DE5B /* workWithFiles.swift */; };
-		218A2C7C275BA934007558A2 /* MailsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218A2C7B275BA934007558A2 /* MailsList.swift */; };
 		218A2C7F275C0DC9007558A2 /* SQLiteORM in Frameworks */ = {isa = PBXBuildFile; productRef = 218A2C7E275C0DC9007558A2 /* SQLiteORM */; };
 		218A2C87275D4D65007558A2 /* AddMailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218A2C86275D4D65007558A2 /* AddMailView.swift */; };
 		218A2C89275D5F7E007558A2 /* MailsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218A2C88275D5F7E007558A2 /* MailsListView.swift */; };
@@ -30,13 +29,13 @@
 		21AC02BE275B7C0400AF7E29 /* util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21AC02BD275B7C0400AF7E29 /* util.swift */; };
 		21C714302761FC380015B060 /* SwCrypt in Frameworks */ = {isa = PBXBuildFile; productRef = 21C7142F2761FC380015B060 /* SwCrypt */; };
 		21CCC67C2784AE63005FD3D2 /* config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CCC67B2784AE63005FD3D2 /* config.swift */; };
+		21D934E92788643E00C1F9CA /* FoldersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D934E82788643E00C1F9CA /* FoldersView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2161FC032761714B0064DE5B /* SendMailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendMailView.swift; sourceTree = "<group>"; };
 		2161FC052761715A0064DE5B /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		2161FC072761DECF0064DE5B /* workWithFiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = workWithFiles.swift; sourceTree = "<group>"; };
-		218A2C7B275BA934007558A2 /* MailsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailsList.swift; sourceTree = "<group>"; };
 		218A2C86275D4D65007558A2 /* AddMailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMailView.swift; sourceTree = "<group>"; };
 		218A2C88275D5F7E007558A2 /* MailsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailsListView.swift; sourceTree = "<group>"; };
 		218A2C8D275E4B06007558A2 /* MailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailView.swift; sourceTree = "<group>"; };
@@ -54,6 +53,7 @@
 		21CCC67B2784AE63005FD3D2 /* config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = config.swift; sourceTree = "<group>"; };
 		21CCC67D2785A2F8005FD3D2 /* NewTest4.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NewTest4.entitlements; sourceTree = "<group>"; };
 		21D934E52785B53E00C1F9CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		21D934E82788643E00C1F9CA /* FoldersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoldersView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,12 +76,12 @@
 		218A2C7A275BA90C007558A2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				218A2C7B275BA934007558A2 /* MailsList.swift */,
 				218A2C86275D4D65007558A2 /* AddMailView.swift */,
 				218A2C88275D5F7E007558A2 /* MailsListView.swift */,
 				218A2C8D275E4B06007558A2 /* MailView.swift */,
 				2161FC032761714B0064DE5B /* SendMailView.swift */,
 				2161FC052761715A0064DE5B /* MessageView.swift */,
+				21D934E82788643E00C1F9CA /* FoldersView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -236,6 +236,7 @@
 			files = (
 				21AC02A2275B6A6100AF7E29 /* ContentView.swift in Sources */,
 				218A2CC32761342D007558A2 /* sendMessage.swift in Sources */,
+				21D934E92788643E00C1F9CA /* FoldersView.swift in Sources */,
 				218A2CBA27600D3D007558A2 /* getMessages.swift in Sources */,
 				21CCC67C2784AE63005FD3D2 /* config.swift in Sources */,
 				21AC02BC275B7BF900AF7E29 /* models.swift in Sources */,
@@ -246,7 +247,6 @@
 				218A2C89275D5F7E007558A2 /* MailsListView.swift in Sources */,
 				21AC02A0275B6A6100AF7E29 /* NewTest4App.swift in Sources */,
 				21AC02BE275B7C0400AF7E29 /* util.swift in Sources */,
-				218A2C7C275BA934007558A2 /* MailsList.swift in Sources */,
 				218A2C87275D4D65007558A2 /* AddMailView.swift in Sources */,
 				218A2C8E275E4B06007558A2 /* MailView.swift in Sources */,
 			);
