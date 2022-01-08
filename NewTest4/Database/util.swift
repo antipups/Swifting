@@ -21,15 +21,20 @@ func add_mail(login: String, password: String) -> Bool {
 
 
 func get_mails() -> Array<String> {
-    return Mails().get_mails()
+    Mails().get_mails()
 }
 
 
 func get_password(login: String) -> String {
-    return Mails().get_password(login: login)
+    Mails().get_password(login: login)
 }
 
 
 func delete_mail(mail: String) {
     Mails().delete_mail(mail_: mail)
+}
+
+
+func get_keys(mail: String) -> (String, String, String) {
+    Mails().get_keys(mail_: mail)
 }

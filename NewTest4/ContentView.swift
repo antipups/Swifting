@@ -10,6 +10,7 @@ import SwiftUI
 func test(){
 //    print("lolka")
 //    get_key_pair()
+    try_to_sign()
 }
 
 struct ContentView: View {

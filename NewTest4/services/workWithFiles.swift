@@ -8,44 +8,50 @@
 import Foundation
 
 
-func read_file(_ result: Result<URL, Error>){
+struct MyFile {
+    let filename: String
+    let file_bytes: Data
+}
+
+
+func read_file(_ result: Result<URL, Error>, login: String){
 
     var arraybytes: NSData!
 
-    do {
+    let selectedFile: URL
 
-        let selectedFile: URL
-
-        switch result {
-        case .failure(_):
-            return
-        case .success(let temp_url):
-            selectedFile = temp_url
-        }
-
-        do {
-            // get access to open file
-            if selectedFile.startAccessingSecurityScopedResource() {
-                let path = selectedFile.path
-                arraybytes = try NSData(contentsOfFile: path)
-//                print(arraybytes?.base64EncodedString())
-                selectedFile.stopAccessingSecurityScopedResource()
-            }
-
-        } catch {
-            // Couldn't read the file.
-            print(error.localizedDescription)
-        }
-
-    } catch {
-        print("error")
+    switch result {
+    case .failure(_):
+        return
+    case .success(let temp_url):
+        selectedFile = temp_url
     }
 
-    if var files = session["files"] {
-        (files as AnyObject).append(arraybytes.base64EncodedString())
+    if selectedFile.startAccessingSecurityScopedResource() {
+        let path = selectedFile.path
+        arraybytes = NSData(contentsOfFile: path)
+        selectedFile.stopAccessingSecurityScopedResource()
+    }
+
+
+    let filename: String = selectedFile.pathComponents.last!
+    let (_, _, tripleDesKey) = get_keys(mail: login)
+    let encrypt_file = To3DES.encrypt(text: arraybytes as Data, salt: tripleDesKey)!
+
+    let file: MyFile = MyFile(
+        filename: filename,
+        file_bytes: encrypt_file
+    )
+
+    var temp_files: Array<Any>
+
+    if let files = session["files"] {
+        temp_files = Array(arrayLiteral: files)[0] as! Array<Any>
+        temp_files.append(file)
     }
     else {
-        session["files"] = [arraybytes.base64EncodedString()]
+        temp_files = [file]
     }
-    print(session.count)
+    session["files"] = temp_files
+    print((session["files"] as! Array<MyFile>))
 }

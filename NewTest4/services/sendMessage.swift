@@ -48,11 +48,63 @@ func check_mail(login: String, password: String) -> Bool {
             }
         }
         return !send_error
-
     }
 }
 
 
-//func sendMessage (text: String, login: String) {
-//    let password = get_password(login: login)
-//}
+func get_attachs() -> Array<Attachment> {
+    var attachs: Array<Attachment> = []
+    let files: Array<MyFile> = session["files"] as! Array<MyFile>
+    let file_ext_sep: Character = "."
+
+    for file in files {
+        attachs
+                .append(Attachment(
+                        data: file.file_bytes,
+                        mime: "application/\(String(describing: file.filename.split(separator: file_ext_sep).last))",
+                        name: file.filename))
+    }
+    return attachs
+}
+
+
+func sendMessage(login: String,
+                 subject: String,
+                 to: String,
+                 body: String) -> Bool{
+    let password = get_password(login: login)
+
+    let server = get_server(login: login)
+
+    if server == "Error" {
+        return false
+
+    } else {
+        let (privateKey, publicKey, tripleDESKey) = get_keys(mail: login)
+
+        let mail: Mail = Mail(
+            from: Mail.User(name: String(login.split(separator: "@")[0]), email: login),
+            to: [Mail.User(name: "User", email: to)],
+            subject: subject,
+            text: (To3DES.encrypt(text: body.data(using: .utf8)!, salt: tripleDESKey)?.base64EncodedString())!,
+            attachments: get_attachs()
+        )
+
+        let smtp = SMTP(
+                hostname: server,
+                email: login,
+                password: password
+//                port: login.contains("@mail.ru") ? 465 : 25
+        )
+
+        var send_error: Bool = false
+
+        smtp.send(mail) { (error) in
+            if let error = error {
+                print(error)
+                send_error = true
+            }
+        }
+        return !send_error
+    }
+}

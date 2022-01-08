@@ -38,7 +38,7 @@ struct SendMailView: View {
 
             Section {
                 Button {
-                    print("tap")
+                    sendMessage(login: login, subject: subject, to: receiver, body: message_body)
                 } label: {
                     HStack {
                         Text("Отправить письмо")
@@ -50,9 +50,8 @@ struct SendMailView: View {
         .navigationTitle("Отправка письма")
         .fileImporter(
             isPresented: $openfile,
-            allowedContentTypes: [.pdf],
-            onCompletion: read_file
-        )
+            allowedContentTypes: [.pdf]
+        ) { result in read_file(result, login: login) }
     }
 }
 

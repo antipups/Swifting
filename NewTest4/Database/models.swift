@@ -111,6 +111,12 @@ class Mails: Model {
         let mail_to_delete = mails.filter(mail == mail_)
         try! db.run(mail_to_delete.delete())
     }
+
+    func get_keys(mail_: String) -> (String, String, String) {
+//        try! db.pluck(mails.select(password).filter(mail == mail_))?[password] as! String
+        let mail_obj = try! db.pluck(mails.select(publicKey, privateKey, tripleDesKey).filter(mail == mail_))
+        return (mail_obj![privateKey], mail_obj![publicKey], mail_obj![tripleDesKey])
+    }
 }
 
 
