@@ -8,7 +8,7 @@
 import SwiftUI
 
 
-var session: Dictionary<String, Any> = ["temp": "one"]
+var session: Dictionary<String, Any> = ["files": []]
 
 
 struct MailsListView: View {
@@ -22,7 +22,7 @@ struct MailsListView: View {
                     {
                         ForEach(mails, id: \.self) {mail_ in
                             NavigationLink(destination: FoldersView(login: mail_)) {
-                                Image(systemName: "mail")
+                                Image(systemName: "tray")
                                 Text(mail_)
                             }
                             .foregroundColor(.blue)

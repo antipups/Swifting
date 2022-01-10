@@ -47,6 +47,36 @@ class Session: Model {
 }
 
 
+class Relations: Model {
+    let relations = Table("Relations")
+
+    let from_ = Expression<String>("from_")
+    let to_ = Expression<String>("to_")
+
+    override init() {
+        super.init()
+        createTable()
+    }
+
+    override func createTable() {
+        try! db.run(relations.create(ifNotExists: true) { t in
+            t.column(from_)
+            t.column(to_)
+        })
+    }
+
+    func is_sended_keys(sender: String, receiver: String) -> Bool{
+        ((try! db.pluck(relations.select(from_).filter(from_ == sender && to_ == receiver))) != nil)
+    }
+
+    func create_relation(sender: String, receiver: String) {
+        try! db.run(relations
+                .insert(from_ <- sender,
+                        to_ <- receiver))
+    }
+}
+
+
 class Mails: Model {
 
     let mails = Table("Mails")

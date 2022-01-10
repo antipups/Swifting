@@ -14,11 +14,16 @@ struct FoldersView: View {
     
     var body: some View {
         ZStack{
+
             List{
+                SendButton(login: login)
                 ForEach(folders, id: \.id) { folder in
                     NavigationLink(destination: MailView(login: login,
                                                          folder: folder.title)) {
-                        Text(folder.title)
+                        HStack {
+                            Image(systemName: "folder")
+                            Text(folder.title)
+                        }
                     }.foregroundColor(.blue)
                 }
             }

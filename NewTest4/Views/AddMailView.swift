@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import AlertToast
+import ToastUI
 
 
 
@@ -31,9 +31,9 @@ struct AddMailView: View {
         
         Form {
             Section {
-                TextField("Логин", text: $login)
-                    .disableAutocorrection(true)
-                    .focused($emailFieldIsFocused, equals: .login)
+                EmailInput(receiver: $login,
+                        toast_about_receiver: $showToast,
+                        placeholder: "Логин").focused($emailFieldIsFocused, equals: .login)
                 
                 SecureField("Пароль", text: $password)
                     .disableAutocorrection(true)
@@ -47,9 +47,8 @@ struct AddMailView: View {
                         emailFieldIsFocused = .password
                     } else {
                         success_operation = add_mail(login: login, password: password)
-                        showToast = true
-                        if success_operation {
-                            self.presentationMode.wrappedValue.dismiss()
+                        if !success_operation {
+                            showToast = true
                         }
                     }
                     
@@ -60,12 +59,23 @@ struct AddMailView: View {
                     }.frame(maxWidth: .infinity)
                 }
             }
-        }.frame(maxWidth: .infinity).toast(isPresenting: $showToast) {
-            if success_operation {
-                return AlertToast(type: .complete(.green), title: "Успешно")
-            } else {
-                return AlertToast(type: .error(.red), title: "Ошибка")
-            }
+        }
+        .frame(maxWidth: .infinity)
+        .toast(isPresented: $showToast,
+                dismissAfter: 2.0)
+        {
+            login = ""
+        } content: {
+            ToastView("Ошибка авторизации")
+                    .toastViewStyle(ErrorToastViewStyle())
+        }
+        .toast(isPresented: $success_operation,
+                dismissAfter: 2.0)
+        {
+            presentationMode.wrappedValue.dismiss()
+        } content: {
+            ToastView("Авторизация успешна")
+                    .toastViewStyle(SuccessToastViewStyle())
         }
         .navigationTitle("Добавление почты")
     }

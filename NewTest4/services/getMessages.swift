@@ -10,6 +10,12 @@ import Foundation
 
 struct MessagesResponse: Codable {
     let status: String
+
+    struct Attach: Codable {
+        let name: String
+        let content: String
+    }
+
     struct Message: Codable {
         let id: Int
         var subject: String
@@ -17,28 +23,43 @@ struct MessagesResponse: Codable {
         let body: String
         var from: String
         let flags: [String]
+        let attachments: [Attach]
     }
     let messages: [Message]
 }
 
 struct FoldersResponse: Codable {
     let status: String
+
     struct Folder: Codable {
         let id: String
         let title: String
     }
+
     let folders: [Folder]
+}
+
+
+struct KeysResponse: Codable {
+    let status: String
+
+    struct Keys: Codable {
+        let pubKey: String
+        let tripleDesKey: String
+    }
+
+    let keys: [Keys]
 }
 
 
 extension String{
     var encodeUrl : String
     {
-        return self.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
+        addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
     }
     var decodeUrl : String
     {
-        return self.removingPercentEncoding!
+        removingPercentEncoding!
     }
 }
 
@@ -46,10 +67,10 @@ extension String{
 func get_messages(login: String, folder: String, completion: @escaping ((MessagesResponse) -> Void)) {
 //    get_password(login: login)
     let password = get_password(login: login)
-    let url = "\(server_url)get_messages?login=\(login)&password=\(password)&folder=\(folder)"
+    let url = "\(server_url)messages?login=\(login)&password=\(password)&folder=\(folder)"
     
     let request_url = URL(string: url.encodeUrl)
-    
+
     URLSession.shared.dataTask(with: request_url!,
                                completionHandler: {data, response, error in
         guard let data = data, error == nil else {
@@ -77,7 +98,7 @@ func get_messages(login: String, folder: String, completion: @escaping ((Message
 func get_folders(login: String, completion: @escaping ((FoldersResponse) -> Void)) {
 //    get_password(login: login)
     let password = get_password(login: login)
-    let url = "\(server_url)get_folders?login=\(login)&password=\(password)"
+    let url = "\(server_url)folders?login=\(login)&password=\(password)"
 
     URLSession.shared.dataTask(with: URL(string: url)!,
                                completionHandler: {data, response, error in

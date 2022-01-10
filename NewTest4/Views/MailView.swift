@@ -68,6 +68,13 @@ struct SendButton: View {
 }
 
 
+func prepare_body(body: String) -> String{
+    var result: String = body
+    result = String(result.prefix(20))
+    return String(result[..<result.index(before: result.endIndex)])
+}
+
+
 struct MessagesList: View {
     @Binding var messages: [MessagesResponse.Message]
     
@@ -80,9 +87,16 @@ struct MessagesList: View {
                     when_: mail_.date,
                     body_: mail_.body
                 )) {
-                    VStack(alignment: .leading) {
-                        Text(mail_.from)
-                        Text(mail_.subject).font(.system(size: 13))
+                    HStack {
+                        Image(systemName: mail_.flags.count > 0 ? "envelope.open" : "envelope.fill").foregroundColor(.blue)
+                        VStack(alignment: .leading) {
+                            Text(mail_.from)
+                            HStack {
+                                Text("[" + mail_.subject + "]")
+                                        .font(.system(size: 13, weight: .bold))
+                                Text(prepare_body(body: mail_.body)).font(.system(size: 13))
+                            }
+                        }
                     }
                 }.foregroundColor(.blue)
             }
