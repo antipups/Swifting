@@ -56,7 +56,8 @@ func get_key_pair_with_triple_des() -> (String, String, String) {
     let (privateKey, publicKey) = try! CC.RSA.generateKeyPair(lengthRSAKeys)
     let privateKeyPEM = SwKeyConvert.PrivateKey.derToPKCS1PEM(privateKey)
     let publicKeyPEM = SwKeyConvert.PublicKey.derToPKCS8PEM(publicKey)
-    return (privateKeyPEM, publicKeyPEM, To3DES.key_generation())
+
+    return (privateKeyPEM, publicKeyPEM, crypt_tripleDesKey(pubKey: publicKey, tripleDesKey: To3DES.key_generation()))
 }
 
 
@@ -86,7 +87,7 @@ func try_to_sign(){
 //    print(encrypted!)
 //    let decrypt = To3DES.decrypt(text: encrypted!, salt: salt)
 //    print(decrypt)
-
+//
 //    let testMessage = "Sex".data(using: .utf8)
 //    let testMessage1 = "Sex2".data(using: .utf8)
 //    let (privateKey, publicKey) = try! CC.RSA.generateKeyPair(2048)
@@ -104,8 +105,13 @@ func try_to_sign(){
 //            saltLen: 16,
 //            signedData: sign!
 //    )
+//
+//    sign?.base64EncodedString()
 //    print(sign)
 //    print(verified)
+//    crypt_tripleDesKey(privKey: "asd", tripleDesKey: "123")
+//    check_mail(login: "nick-kurkurin@yandex.ru", password: "fyvyjlvhsqbqdqrc")
+//    check_mail(login: "gosha.mar.gosha@yandex.ru", password: "dygyuslobhldzanb")
 }
 
 
@@ -123,3 +129,117 @@ func try_to_sign(){
 //    print(decrypt)
 //    return
 //}
+
+
+func crypt_tripleDesKey(pubKey: Data, tripleDesKey: String) -> String {
+//    let privateKeyDER = try! SwKeyConvert.PrivateKey.pemToPKCS1DER(privKey)
+    let publicKeyDER = pubKey
+
+    let crypted_data = try! CC.RSA.encrypt(tripleDesKey.data(using: .utf8)!, derKey: publicKeyDER, tag: "L".data(using: .utf8)!, padding: .oaep, digest: .sha1)
+//    let (encrypted_data, status) = try! CC.RSA.decrypt(crypted_data, derKey: privateKeyDER, tag: "L".data(using: .utf8)!, padding: .oaep, digest: .sha1)
+//
+//    return String(decoding: encrypted_data, as: UTF8.self)
+    return crypted_data.base64EncodedString()
+}
+
+
+func decrypt_tripleDesKey(privKey: String, crypted_data: String) -> String {
+    let privateKeyDER = try! SwKeyConvert.PrivateKey.pemToPKCS1DER(privKey)
+//    let publicKeyDER = try! SwKeyConvert.PublicKey.pemToPKCS1DER(pubKey)
+    let crypted_data_bytes = Data(base64Encoded: crypted_data, options: .ignoreUnknownCharacters)!
+
+//    let crypted_data = try! CC.RSA.encrypt(tripleDesKey.data(using: .utf8)!, derKey: publicKeyDER, tag: "L".data(using: .utf8)!, padding: .oaep, digest: .sha1)
+    let (encrypted_data, _) = try! CC.RSA.decrypt(crypted_data_bytes, derKey: privateKeyDER, tag: "L".data(using: .utf8)!, padding: .oaep, digest: .sha1)
+//
+    return String(decoding: encrypted_data, as: UTF8.self)
+//    return encrypted_data
+}
+
+
+func decrypt_from_tripledes(privKey: String, tripleDesData: String, text: String) -> String{
+    let tripleDesKey = decrypt_tripleDesKey(privKey: privKey, crypted_data: tripleDesData)
+    let crypted_text_bytes = Data(base64Encoded: text, options: .ignoreUnknownCharacters)!
+
+    return To3DES.decrypt(text: crypted_text_bytes, salt: tripleDesKey)!
+}
+
+
+func decrypt_messages(messages: [MessagesResponse.Message],
+                      login: String,
+                      completion: @escaping ([MessagesResponse.Message]) -> Void) {
+
+    var new_messages: [MessagesResponse.Message] = []
+
+    let group = DispatchGroup()
+
+    for message in messages {
+            group.enter()
+            get_keys_from_server(from_: message.from, to_: login, group_: group) { response in
+//                print("tst", response)
+                new_messages.append(MessagesResponse.Message(id: message.id,
+                        subject: decrypt_from_tripledes(privKey: response.keys.privKey,
+                                tripleDesData: response.keys.tripleDesKey,
+                                text: message.subject),
+                        date: message.date,
+                        body: decrypt_from_tripledes(privKey: response.keys.privKey,
+                                tripleDesData: response.keys.tripleDesKey,
+                                text: message.body),
+                        from: message.from
+                                .replacingOccurrences(of: "=?UTF-8?Q?", with: "")
+                                .replacingOccurrences(of: "?=", with: ""),
+                        flags: message.flags,
+                        attachments: message.attachments))
+//                print(new_messages.count)
+                group.leave()
+            }
+    }
+    group.notify(queue: .main){
+        completion(new_messages)
+    }
+}
+
+
+struct KeysResponse: Codable {
+    let status: String
+
+    struct Keys: Codable {
+        let pubKey: String
+        let privKey: String
+        let tripleDesKey: String
+    }
+
+    let keys: Keys
+}
+
+
+func get_keys_from_server(from_: String, to_: String, group_: DispatchGroup, completion: @escaping (KeysResponse) -> Void) {
+    let new_from = from_.replacingOccurrences(of: "=?UTF-8?Q?", with: "").replacingOccurrences(of: "?=", with: "")
+    let url = "\(server_url)keys?from_=\(new_from)&to_=\(to_)"
+
+    let request_url = URL(string: url.encodeUrl)
+
+    URLSession.shared.dataTask(with: request_url!,
+        completionHandler: {data, response, error in
+            guard let data = data, error == nil else {
+                print("Smth went wrong")
+                group_.leave()
+                return
+            }
+
+            var result: Any?
+            do {
+                result = try JSONDecoder().decode(KeysResponse.self, from: data)
+            } catch {
+                print("Failed to conver \(error.localizedDescription)")
+                group_.leave()
+                return
+            }
+
+            guard let json = result else {
+                print("Error equal")
+                group_.leave()
+                return
+            }
+            completion(json as! KeysResponse)
+    }).resume()
+}

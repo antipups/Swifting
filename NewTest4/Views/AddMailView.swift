@@ -62,7 +62,7 @@ struct AddMailView: View {
         }
         .frame(maxWidth: .infinity)
         .toast(isPresented: $showToast,
-                dismissAfter: 2.0)
+                dismissAfter: 1.5)
         {
             login = ""
         } content: {
@@ -70,7 +70,7 @@ struct AddMailView: View {
                     .toastViewStyle(ErrorToastViewStyle())
         }
         .toast(isPresented: $success_operation,
-                dismissAfter: 2.0)
+                dismissAfter: 1.5)
         {
             presentationMode.wrappedValue.dismiss()
         } content: {

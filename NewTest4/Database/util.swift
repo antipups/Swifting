@@ -40,6 +40,11 @@ func get_keys(mail: String) -> (String, String, String) {
 }
 
 
+func get_tripleDesKey(mail: String) -> String {
+    Mails().get_tripleDesKey(mail_: mail)
+}
+
+
 func is_sended_keys(from_: String, to_: String) -> Bool {
     Relations().is_sended_keys(sender: from_, receiver: to_)
 }
@@ -47,4 +52,9 @@ func is_sended_keys(from_: String, to_: String) -> Bool {
 
 func create_relation(from_: String, to_: String) {
     Relations().create_relation(sender: from_, receiver: to_)
+}
+
+
+func delete_relations(from_: String, to_: String) {
+    Relations().remove_relation(sender: from_, receiver: to_)
 }

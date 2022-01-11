@@ -40,18 +40,6 @@ struct FoldersResponse: Codable {
 }
 
 
-struct KeysResponse: Codable {
-    let status: String
-
-    struct Keys: Codable {
-        let pubKey: String
-        let tripleDesKey: String
-    }
-
-    let keys: [Keys]
-}
-
-
 extension String{
     var encodeUrl : String
     {

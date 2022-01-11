@@ -19,6 +19,7 @@ struct SendMailView: View {
 //        case message_body
 //    }
 //    .focused($fieldIsFocused, equals: .message_body)
+    @State var to_back: Bool = false
 
     @State var receiver: String = ""
     @State var subject: String = ""
@@ -27,6 +28,7 @@ struct SendMailView: View {
     @State var filename: String = ""
 
     @State private var toast_about_receiver: Bool = false
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 //    @FocusState private var fieldIsFocused: Field?
 
     var body: some View {
@@ -46,11 +48,15 @@ struct SendMailView: View {
                         toast_about_receiver: $toast_about_receiver,
                         login: login,
                         subject: $subject,
-                        message_body: $message_body
+                        message_body: $message_body,
+                        to_back: $to_back
                 )
             }
         }
         .navigationTitle("Отправка письма")
+        .onChange(of: to_back) { value in
+            presentationMode.wrappedValue.dismiss()
+        }
     }
 }
 
@@ -78,15 +84,18 @@ struct EmailInput: View {
             })
             .textContentType(.emailAddress)
             .keyboardType(.emailAddress)
-            .toast(isPresented: $toast_about_receiver,
-                    dismissAfter: 2.0)
-            {
-                receiver = ""
-                toast_about_receiver = false
-            } content: {
-                ToastView("Введенная почта не валидна")
-                        .toastViewStyle(ErrorToastViewStyle())
+            .alert(isPresented: $toast_about_receiver) {
+                Alert(title: Text("Введенный адрес невалиден"), dismissButton: .destructive(Text("Я его изменю")))
             }
+//            .toast(isPresented: $toast_about_receiver,
+//                    dismissAfter: 1.5)
+//            {
+//                receiver = ""
+//                toast_about_receiver = false
+//            } content: {
+//                ToastView("Введенная почта невалидна")
+//                        .toastViewStyle(ErrorToastViewStyle())
+//            }
     }
 }
 
@@ -118,12 +127,17 @@ struct SendMessageButton: View {
     let login: String
     @Binding var subject: String
     @Binding var message_body: String
+    @Binding var to_back: Bool
+
 
     var body: some View {
         Button {
             if receiver.contains("@") {
                 if sendMessage(login: login, subject: subject, to: receiver, body: message_body) {
-                    toast_about_receiver = false
+                    toast_about_receiver = true
+                }
+                else {
+                    to_back = true
                 }
             }
         } label: {

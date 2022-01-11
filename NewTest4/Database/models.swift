@@ -74,6 +74,11 @@ class Relations: Model {
                 .insert(from_ <- sender,
                         to_ <- receiver))
     }
+
+    func remove_relation(sender: String, receiver: String) {
+        let record = relations.filter(from_ == sender && to_ == receiver)
+        try! db.run(record.delete())
+    }
 }
 
 
@@ -116,8 +121,8 @@ class Mails: Model {
             let keys = get_key_pair_with_triple_des()
             try db.run(mails.insert(mail <- login,
                     self.password <- password,
-                    publicKey <- keys.0,
-                    privateKey <- keys.1,
+                    publicKey <- keys.1,
+                    privateKey <- keys.0,
                     tripleDesKey <- keys.2))
         } catch {
             return false
@@ -143,9 +148,17 @@ class Mails: Model {
     }
 
     func get_keys(mail_: String) -> (String, String, String) {
-//        try! db.pluck(mails.select(password).filter(mail == mail_))?[password] as! String
         let mail_obj = try! db.pluck(mails.select(publicKey, privateKey, tripleDesKey).filter(mail == mail_))
-        return (mail_obj![privateKey], mail_obj![publicKey], mail_obj![tripleDesKey])
+        let privkey = mail_obj![privateKey]
+        return (privkey,
+                mail_obj![publicKey],
+                decrypt_tripleDesKey(privKey: privkey, crypted_data: mail_obj![tripleDesKey])
+        )
+    }
+
+    func get_tripleDesKey(mail_: String) -> String {
+        let mail_obj = try! db.pluck(mails.select(publicKey, privateKey, tripleDesKey).filter(mail == mail_))
+        return mail_obj![tripleDesKey]
     }
 }
 

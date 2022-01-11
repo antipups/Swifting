@@ -33,7 +33,6 @@ func read_file(_ result: Result<URL, Error>, login: String){
         selectedFile.stopAccessingSecurityScopedResource()
     }
 
-
     let filename: String = selectedFile.pathComponents.last!
     let (_, _, tripleDesKey) = get_keys(mail: login)
     let encrypt_file = To3DES.encrypt(text: arraybytes as Data, salt: tripleDesKey)!

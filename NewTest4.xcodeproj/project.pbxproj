@@ -30,6 +30,7 @@
 		21C714302761FC380015B060 /* SwCrypt in Frameworks */ = {isa = PBXBuildFile; productRef = 21C7142F2761FC380015B060 /* SwCrypt */; };
 		21CCC67C2784AE63005FD3D2 /* config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CCC67B2784AE63005FD3D2 /* config.swift */; };
 		21D934E92788643E00C1F9CA /* FoldersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D934E82788643E00C1F9CA /* FoldersView.swift */; };
+		6A471D9480322FB30CDEC97C /* workWithMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A471AA380ACE0CA4C9CB868 /* workWithMessages.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		21CCC67D2785A2F8005FD3D2 /* NewTest4.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NewTest4.entitlements; sourceTree = "<group>"; };
 		21D934E52785B53E00C1F9CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		21D934E82788643E00C1F9CA /* FoldersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoldersView.swift; sourceTree = "<group>"; };
+		6A471AA380ACE0CA4C9CB868 /* workWithMessages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = workWithMessages.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +95,7 @@
 				218A2CBC2760CBBA007558A2 /* cryption.swift */,
 				218A2CC22761342D007558A2 /* sendMessage.swift */,
 				2161FC072761DECF0064DE5B /* workWithFiles.swift */,
+				6A471AA380ACE0CA4C9CB868 /* workWithMessages.swift */,
 			);
 			path = services;
 			sourceTree = "<group>";
@@ -201,7 +204,7 @@
 			);
 			mainGroup = 21AC0293275B6A6100AF7E29;
 			packageReferences = (
-				21AC02AD275B6E3500AF7E29 /* XCRemoteSwiftPackageReference "SQLite" */,
+				21AC02AD275B6E3500AF7E29 /* XCRemoteSwiftPackageReference "SQLite.swift" */,
 				21AC02B0275B6E5300AF7E29 /* XCRemoteSwiftPackageReference "Swift-SMTP" */,
 				218A2C7D275C0DC9007558A2 /* XCRemoteSwiftPackageReference "sqlite-orm-swift" */,
 				218A2CBF2760DAB8007558A2 /* XCRemoteSwiftPackageReference "BlueRSA" */,
@@ -249,6 +252,7 @@
 				21AC02BE275B7C0400AF7E29 /* util.swift in Sources */,
 				218A2C87275D4D65007558A2 /* AddMailView.swift in Sources */,
 				218A2C8E275E4B06007558A2 /* MailView.swift in Sources */,
+				6A471D9480322FB30CDEC97C /* workWithMessages.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -481,7 +485,7 @@
 				kind = branch;
 			};
 		};
-		21AC02AD275B6E3500AF7E29 /* XCRemoteSwiftPackageReference "SQLite" */ = {
+		21AC02AD275B6E3500AF7E29 /* XCRemoteSwiftPackageReference "SQLite.swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/stephencelis/SQLite.swift";
 			requirement = {
@@ -525,7 +529,7 @@
 		};
 		21AC02AE275B6E3500AF7E29 /* SQLite */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 21AC02AD275B6E3500AF7E29 /* XCRemoteSwiftPackageReference "SQLite" */;
+			package = 21AC02AD275B6E3500AF7E29 /* XCRemoteSwiftPackageReference "SQLite.swift" */;
 			productName = SQLite;
 		};
 		21AC02B1275B6E5300AF7E29 /* SwiftSMTP */ = {

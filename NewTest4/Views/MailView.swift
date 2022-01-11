@@ -19,9 +19,8 @@ struct MailView: View {
         ZStack {
             List {
                 SendButton(login: login)
-                MessagesList(messages: $messages)
-                
-            }.onAppear { // Prefer, Life cycle method
+                MessagesList(login: login, messages: $messages)
+            }.onAppear {
                 load_messages()
             }
             if loading {
@@ -39,7 +38,12 @@ struct MailView: View {
     func load_messages() {
         get_messages(login: login,
                      folder: folder) { response in
-            messages = response.messages
+            decrypt_messages(messages: response.messages,
+                                        login: login) { new_messages in
+                messages = new_messages.sorted { message, message2 in
+                    message.id > message2.id
+                }
+            }
             self.loading = false
         }
     }
@@ -68,37 +72,52 @@ struct SendButton: View {
 }
 
 
+func prepare_subject(body: String) -> String{
+//    var result: String = body.replacingOccurrences(of: "\n", with: " ")
+    var result: String = body
+    if result.count > 15 {
+        result = String(result.prefix(10))
+        return result + "..."
+    }
+    return result
+}
+
+
 func prepare_body(body: String) -> String{
     var result: String = body
-    result = String(result.prefix(20))
-    return String(result[..<result.index(before: result.endIndex)])
+    result = String(result.prefix(15))
+    return result.replacingOccurrences(of: "\n", with: " ") + "..."
 }
 
 
 struct MessagesList: View {
+    let login: String
     @Binding var messages: [MessagesResponse.Message]
     
     var body: some View {
         Section {
             ForEach($messages, id: \.id) { $mail_ in
                 NavigationLink(destination: MessageView(
+                    login: login,
+                    id_: mail_.id,
                     title_: mail_.subject,
                     from_: mail_.from,
                     when_: mail_.date,
                     body_: mail_.body
                 )) {
                     HStack {
-                        Image(systemName: mail_.flags.count > 0 ? "envelope.open" : "envelope.fill").foregroundColor(.blue)
+                        Image(systemName: mail_.flags.contains("\\Seen") ? "envelope.open" : "envelope.fill").foregroundColor(.blue)
                         VStack(alignment: .leading) {
                             Text(mail_.from)
                             HStack {
-                                Text("[" + mail_.subject + "]")
+                                Text("[" + prepare_subject(body: mail_.subject) + "]")
                                         .font(.system(size: 13, weight: .bold))
                                 Text(prepare_body(body: mail_.body)).font(.system(size: 13))
                             }
                         }
                     }
-                }.foregroundColor(.blue)
+                }
+                .foregroundColor(.blue)
             }
         }
     }

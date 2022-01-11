@@ -33,17 +33,15 @@ func check_mail(login: String, password: String) -> Bool {
                 subject: "Авторизация",
                 text: "Вы авторизированны в данном приложении"
         )
-
         let smtp = SMTP(
-                hostname: server,     // SMTP server address
-                email: login,       // username to login
-                password: password           // password to login
-//                port: login.contains("@mail.ru") ? 465 : 25
+                hostname: server,
+                email: login,
+                password: password
         )
         var send_error: Bool = false
         smtp.send(mail) { (error) in
             if let error = error {
-                print(error)
+                print("Error in sending mail - ", error)
                 send_error = true
             }
         }
@@ -58,8 +56,8 @@ func get_attachs() -> Array<Attachment> {
     let file_ext_sep: Character = "."
 
     for file in files {
-        attachs
-                .append(Attachment(
+        attachs.append(
+                Attachment(
                         data: file.file_bytes,
                         mime: "application/\(String(describing: file.filename.split(separator: file_ext_sep).last))",
                         name: file.filename))
@@ -72,6 +70,7 @@ func get_attachs() -> Array<Attachment> {
 struct SendKeys: Codable {
     let from_email: String
     let to_email: String
+    let privKey: String
     let pubKey: String
     let tripleDesKey: String
 }
@@ -79,6 +78,7 @@ struct SendKeys: Codable {
 
 func create_relation_on_mails(from_email: String,
                               to_email: String,
+                              privkey: String,
                               pubkey: String,
                               tripleDesKey: String,
                               completion: @escaping (String) -> Void) {
@@ -89,6 +89,7 @@ func create_relation_on_mails(from_email: String,
     request.addValue("application/json", forHTTPHeaderField: "Content-Type")
     request.httpBody = try! JSONEncoder().encode(SendKeys(from_email: from_email,
             to_email: to_email,
+            privKey: privkey,
             pubKey: pubkey,
             tripleDesKey: tripleDesKey))
 
@@ -113,29 +114,35 @@ func sendMessage(login: String,
     } else {
         let (privateKey, publicKey, tripleDESKey) = get_keys(mail: login)
 
+        let attachs = get_attachs()
+
         let mail: Mail = Mail(
-            from: Mail.User(name: String(login.split(separator: "@")[0]), email: login),
+            from: Mail.User(name: login, email: login),
             to: [Mail.User(name: "User", email: to)],
             subject: (To3DES.encrypt(text: subject.data(using: .utf8)!, salt: tripleDESKey)?.base64EncodedString())!,
             text: (To3DES.encrypt(text: body.data(using: .utf8)!, salt: tripleDESKey)?.base64EncodedString())!,
-            attachments: get_attachs()
+            attachments: attachs
         )
 
         let smtp = SMTP(
                 hostname: server,
                 email: login,
                 password: password
-//                port: login.contains("@mail.ru") ? 465 : 25
+//                port: login.contains("@mail.ru") ? 58 : 25
         )
 
         var send_error: Bool = false
 
+//        delete_relations(from_: login, to_: to)
+
         if !is_sended_keys(from_: login, to_: to) {
+            create_relation(from_: login, to_: to)
             create_relation_on_mails(
                     from_email: login,
                     to_email: to,
+                    privkey: privateKey,
                     pubkey: publicKey,
-                    tripleDesKey: tripleDESKey
+                    tripleDesKey: get_tripleDesKey(mail: login)
             ) { result in
                 print(result)
             }
