@@ -49,6 +49,22 @@ class To3DES {
         }
         return nil
     }
+
+    public static func decrypt_for_file(text: Data, salt: String) -> [UInt8]? {
+        let key = Array(salt.utf8)
+        let bytes = [UInt8](text)
+        let cryptor = try! Cryptor(
+                operation: .decrypt,
+                algorithm: .tripleDes,
+                options: [.ecbMode, .pkcs7Padding ],
+                key: key,
+                iv:[UInt8]()
+        )
+        if let decrypted = cryptor.update(byteArray: bytes)?.final() {
+            return decrypted
+        }
+        return nil
+    }
 }
 
 
@@ -175,7 +191,6 @@ func decrypt_messages(messages: [MessagesResponse.Message],
     for message in messages {
             group.enter()
             get_keys_from_server(from_: message.from, to_: login, group_: group) { response in
-//                print("tst", response)
                 new_messages.append(MessagesResponse.Message(id: message.id,
                         subject: decrypt_from_tripledes(privKey: response.keys.privKey,
                                 tripleDesData: response.keys.tripleDesKey,
@@ -189,7 +204,6 @@ func decrypt_messages(messages: [MessagesResponse.Message],
                                 .replacingOccurrences(of: "?=", with: ""),
                         flags: message.flags,
                         attachments: message.attachments))
-//                print(new_messages.count)
                 group.leave()
             }
     }

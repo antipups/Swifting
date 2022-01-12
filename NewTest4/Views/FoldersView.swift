@@ -14,12 +14,11 @@ struct FoldersView: View {
     
     var body: some View {
         ZStack{
-
             List{
                 SendButton(login: login)
                 ForEach(folders, id: \.id) { folder in
                     NavigationLink(destination: MailView(login: login,
-                                                         folder: folder.title)) {
+                            folder: folder.title)) {
                         HStack {
                             Image(systemName: "folder")
                             Text(folder.title)
@@ -31,7 +30,9 @@ struct FoldersView: View {
                 LoaderView(text: "Получаю папки")
             }
         }
-        .navigationBarTitle("Выберите папку")
+        .navigationBarTitle("Папки", displayMode: .inline)
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: BackButton(button_name: "Почты"))
         .onAppear {
             load_folders()
         }

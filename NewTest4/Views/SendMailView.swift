@@ -26,9 +26,11 @@ struct SendMailView: View {
     @State var message_body: String = ""
     
     @State var filename: String = ""
+    @State var openfile = false
 
     @State private var toast_about_receiver: Bool = false
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+
 //    @FocusState private var fieldIsFocused: Field?
 
     var body: some View {
@@ -40,7 +42,16 @@ struct SendMailView: View {
                         placeholder: "Кому отправить")
                 TextField("Тема письма", text: $subject)
                 TextField("Тело письма", text: $message_body)
-                ImportFiles(login: login)
+//                ImportFiles(login: login, openfile: $openfile)
+                Button {
+                    openfile.toggle()
+                    print(openfile)
+                } label: {
+                    HStack {
+                        Text("Прикрепить файл")
+                        Image(systemName: "paperclip")
+                    }.foregroundColor(.blue)
+                }
             }
 
             Section {
@@ -54,9 +65,15 @@ struct SendMailView: View {
             }
         }
         .navigationTitle("Отправка письма")
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: BackButton(button_name: "Письма"))
         .onChange(of: to_back) { value in
             presentationMode.wrappedValue.dismiss()
         }
+        .fileImporter(
+                isPresented: $openfile,
+                allowedContentTypes: [.pdf]
+        ) { result in read_file(result, login: login) }
     }
 }
 
@@ -67,84 +84,3 @@ struct SendMailView_Previews: PreviewProvider {
 }
 
 
-struct EmailInput: View {
-    @Binding var receiver: String
-    @Binding var toast_about_receiver: Bool
-    let placeholder: String
-
-    var body: some View {
-        TextField(placeholder,
-            text: $receiver,
-            onEditingChanged: {editing_status in
-                if !editing_status {
-                    if !receiver.contains("@") {
-                        toast_about_receiver = true
-                    }
-                }
-            })
-            .textContentType(.emailAddress)
-            .keyboardType(.emailAddress)
-            .alert(isPresented: $toast_about_receiver) {
-                Alert(title: Text("Введенный адрес невалиден"), dismissButton: .destructive(Text("Я его изменю")))
-            }
-//            .toast(isPresented: $toast_about_receiver,
-//                    dismissAfter: 1.5)
-//            {
-//                receiver = ""
-//                toast_about_receiver = false
-//            } content: {
-//                ToastView("Введенная почта невалидна")
-//                        .toastViewStyle(ErrorToastViewStyle())
-//            }
-    }
-}
-
-
-struct ImportFiles: View {
-    let login: String
-    @State var openfile = false
-
-    var body: some View {
-        Button {
-            openfile.toggle()
-        } label: {
-            HStack {
-                Text("Прикрепить файл")
-                Image(systemName: "paperclip")
-            }.foregroundColor(.blue)
-        }
-        .fileImporter(
-                isPresented: $openfile,
-                allowedContentTypes: [.pdf]
-        ) { result in read_file(result, login: login) }
-    }
-}
-
-
-struct SendMessageButton: View {
-    @Binding var receiver: String
-    @Binding var toast_about_receiver: Bool
-    let login: String
-    @Binding var subject: String
-    @Binding var message_body: String
-    @Binding var to_back: Bool
-
-
-    var body: some View {
-        Button {
-            if receiver.contains("@") {
-                if sendMessage(login: login, subject: subject, to: receiver, body: message_body) {
-                    toast_about_receiver = true
-                }
-                else {
-                    to_back = true
-                }
-            }
-        } label: {
-            HStack {
-                Text("Отправить письмо")
-                Image(systemName: "arrowshape.turn.up.right")
-            }
-        }
-    }
-}

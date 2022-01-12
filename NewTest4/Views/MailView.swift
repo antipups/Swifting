@@ -27,7 +27,9 @@ struct MailView: View {
                 LoaderView(text: "Получаю письма")
             }
         }
-        .navigationTitle("Доступные письма")
+        .navigationTitle("Письма")
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: BackButton(button_name: "Папки"))
         .refreshable {
             self.loading = true
             load_messages()
@@ -103,7 +105,8 @@ struct MessagesList: View {
                     title_: mail_.subject,
                     from_: mail_.from,
                     when_: mail_.date,
-                    body_: mail_.body
+                    body_: mail_.body,
+                    attachs: mail_.attachments
                 )) {
                     HStack {
                         Image(systemName: mail_.flags.contains("\\Seen") ? "envelope.open" : "envelope.fill").foregroundColor(.blue)

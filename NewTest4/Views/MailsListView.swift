@@ -20,7 +20,7 @@ struct MailsListView: View {
                 Section {
                     List
                     {
-                        ForEach(mails, id: \.self) {mail_ in
+                        ForEach(mails, id: \.self) { mail_ in
                             NavigationLink(destination: FoldersView(login: mail_)) {
                                 Image(systemName: "tray")
                                 Text(mail_)
@@ -49,7 +49,7 @@ struct MailsListView: View {
             .onAppear {
                 mails = get_mails()
             }
-            .navigationBarTitle("Выберите почту")
+            .navigationBarTitle("Почты")
             .refreshable {
                 mails = get_mails()
             }
