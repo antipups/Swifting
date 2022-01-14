@@ -79,6 +79,11 @@ class Relations: Model {
         let record = relations.filter(from_ == sender && to_ == receiver)
         try! db.run(record.delete())
     }
+    
+    func remove_relations_from_one_sender(sender: String) {
+        let records = relations.filter(from_ == sender)
+        try! db.run(records.delete())
+    }
 }
 
 
@@ -145,6 +150,7 @@ class Mails: Model {
     func delete_mail(mail_: String) {
         let mail_to_delete = mails.filter(mail == mail_)
         try! db.run(mail_to_delete.delete())
+        Relations().remove_relations_from_one_sender(sender: mail_)
     }
 
     func get_keys(mail_: String) -> (String, String, String) {

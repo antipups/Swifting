@@ -68,16 +68,19 @@ func getDocumentsDirectory() -> URL {
 func decrypt_files(from_: String, to_: String, attachs: [MessagesResponse.Attach], completion: @escaping () -> Void) {
     let group = DispatchGroup()
     for attach in attachs {
-        get_keys_from_server(from_: from_, to_: to_, group_: group) { response in
-            let tripleDesKey = decrypt_tripleDesKey(privKey: response.keys.privKey, crypted_data: response.keys.tripleDesKey)
-            let filebytes = To3DES.decrypt_for_file(text: Data(base64Encoded: attach.content, options: .ignoreUnknownCharacters)!, salt: tripleDesKey)!
+        let path_to_file = getDocumentsDirectory().appendingPathComponent(attach.name)
+        if path_to_file.lastPathComponent.contains(".pdf") {
+            get_keys_from_server(from_: from_, to_: to_, group_: group) { response in
+                let tripleDesKey = decrypt_tripleDesKey(privKey: response.keys.privKey, crypted_data: response.keys.tripleDesKey)
+                let filebytes = To3DES.decrypt_for_file(text: Data(base64Encoded: attach.content, options: .ignoreUnknownCharacters)!, salt: tripleDesKey)!
 
-            var fileurl = getDocumentsDirectory().appendingPathComponent(attach.name)
+                var fileurl = getDocumentsDirectory().appendingPathComponent(attach.name)
 
-            let toint = filebytes.map(Int8.init)
-            let backtobytes = toint.map(UInt8.init)
-            let data = Data(backtobytes)
-            try! data.write(to: fileurl)
+                let toint = filebytes.map(Int8.init)
+                let backtobytes = toint.map(UInt8.init)
+                let data = Data(backtobytes)
+                try! data.write(to: fileurl)
+            }
         }
     }
     group.notify(queue: .main){

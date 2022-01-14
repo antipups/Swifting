@@ -75,20 +75,12 @@ struct SendButton: View {
 
 
 func prepare_subject(body: String) -> String{
-//    var result: String = body.replacingOccurrences(of: "\n", with: " ")
-    var result: String = body
-    if result.count > 15 {
-        result = String(result.prefix(10))
-        return result + "..."
-    }
-    return result
+    body.count > 15 ? (String(body.prefix(10)) + "...") : body
 }
 
 
 func prepare_body(body: String) -> String{
-    var result: String = body
-    result = String(result.prefix(15))
-    return result.replacingOccurrences(of: "\n", with: " ") + "..."
+    String(body.prefix(15)).replacingOccurrences(of: "\n", with: " ") + "..."
 }
 
 

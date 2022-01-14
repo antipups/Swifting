@@ -92,7 +92,6 @@ struct MessageView: View {
     @State var attachs: [MessagesResponse.Attach]
     @State private var showingExporter = false
 
-
     var body: some View {
         VStack {
 //            pdfView

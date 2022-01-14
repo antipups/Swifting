@@ -61,14 +61,14 @@ struct AddMailView: View {
             }
         }
         .frame(maxWidth: .infinity)
-        .toast(isPresented: $showToast,
-                dismissAfter: 1.5)
-        {
-            login = ""
-        } content: {
-            ToastView("Ошибка авторизации")
-                    .toastViewStyle(ErrorToastViewStyle())
-        }
+//        .toast(isPresented: $showToast,
+//                dismissAfter: 1.5)
+//        {
+//            login = ""
+//        } content: {
+//            ToastView("Ошибка авторизации")
+//                    .toastViewStyle(ErrorToastViewStyle())
+//        }
         .toast(isPresented: $success_operation,
                 dismissAfter: 1.5)
         {

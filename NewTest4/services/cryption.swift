@@ -77,25 +77,6 @@ func get_key_pair_with_triple_des() -> (String, String, String) {
 }
 
 
-//func crypt(text: String) -> String?{
-//
-////    let publicKey = try! CryptorRSA.createPublicKey(with: "Sex".data(using: .utf8)!)
-//
-//    return To3DES.key_generation()
-//
-////    let key = "123"
-////    let data = "sex"
-////
-////    print("Просто текст - \(text)")
-////    let enctrypt_text = To3DES.encrypt(text: text, salt: key)
-////    print("Зашифрованный текст - \(enctrypt_text)")
-////    let decrypt_text = To3DES.decrypt(text: enctrypt_text!, salt: key)
-////    print("Расшифрованный текст - \(decrypt_text!)")
-////    return ""
-////    let algorithm: SecKeyAlgorithm = .ecdsaSignatureRFC4754
-//
-//}
-
 func try_to_sign(){
 //    let (privateKey, publicKey, tripleDESKey) = get_keys(mail: "Nkl54@mail.ru")
 //    let salt = "12345678912345678"
@@ -148,35 +129,28 @@ func try_to_sign(){
 
 
 func crypt_tripleDesKey(pubKey: Data, tripleDesKey: String) -> String {
-//    let privateKeyDER = try! SwKeyConvert.PrivateKey.pemToPKCS1DER(privKey)
     let publicKeyDER = pubKey
 
     let crypted_data = try! CC.RSA.encrypt(tripleDesKey.data(using: .utf8)!, derKey: publicKeyDER, tag: "L".data(using: .utf8)!, padding: .oaep, digest: .sha1)
-//    let (encrypted_data, status) = try! CC.RSA.decrypt(crypted_data, derKey: privateKeyDER, tag: "L".data(using: .utf8)!, padding: .oaep, digest: .sha1)
-//
-//    return String(decoding: encrypted_data, as: UTF8.self)
     return crypted_data.base64EncodedString()
 }
 
 
 func decrypt_tripleDesKey(privKey: String, crypted_data: String) -> String {
     let privateKeyDER = try! SwKeyConvert.PrivateKey.pemToPKCS1DER(privKey)
-//    let publicKeyDER = try! SwKeyConvert.PublicKey.pemToPKCS1DER(pubKey)
     let crypted_data_bytes = Data(base64Encoded: crypted_data, options: .ignoreUnknownCharacters)!
 
-//    let crypted_data = try! CC.RSA.encrypt(tripleDesKey.data(using: .utf8)!, derKey: publicKeyDER, tag: "L".data(using: .utf8)!, padding: .oaep, digest: .sha1)
     let (encrypted_data, _) = try! CC.RSA.decrypt(crypted_data_bytes, derKey: privateKeyDER, tag: "L".data(using: .utf8)!, padding: .oaep, digest: .sha1)
-//
+
     return String(decoding: encrypted_data, as: UTF8.self)
-//    return encrypted_data
 }
 
 
-func decrypt_from_tripledes(privKey: String, tripleDesData: String, text: String) -> String{
+func decrypt_from_tripledes(privKey: String, tripleDesData: String, text: String) -> String?{
     let tripleDesKey = decrypt_tripleDesKey(privKey: privKey, crypted_data: tripleDesData)
     let crypted_text_bytes = Data(base64Encoded: text, options: .ignoreUnknownCharacters)!
 
-    return To3DES.decrypt(text: crypted_text_bytes, salt: tripleDesKey)!
+    return To3DES.decrypt(text: crypted_text_bytes, salt: tripleDesKey)
 }
 
 
@@ -191,19 +165,24 @@ func decrypt_messages(messages: [MessagesResponse.Message],
     for message in messages {
             group.enter()
             get_keys_from_server(from_: message.from, to_: login, group_: group) { response in
-                new_messages.append(MessagesResponse.Message(id: message.id,
-                        subject: decrypt_from_tripledes(privKey: response.keys.privKey,
-                                tripleDesData: response.keys.tripleDesKey,
-                                text: message.subject),
-                        date: message.date,
-                        body: decrypt_from_tripledes(privKey: response.keys.privKey,
-                                tripleDesData: response.keys.tripleDesKey,
-                                text: message.body),
-                        from: message.from
-                                .replacingOccurrences(of: "=?UTF-8?Q?", with: "")
-                                .replacingOccurrences(of: "?=", with: ""),
-                        flags: message.flags,
-                        attachments: message.attachments))
+                if let subject = decrypt_from_tripledes(privKey: response.keys.privKey,
+                        tripleDesData: response.keys.tripleDesKey,
+                        text: message.subject)
+                {
+                    if let body = decrypt_from_tripledes(privKey: response.keys.privKey,
+                            tripleDesData: response.keys.tripleDesKey,
+                            text: message.body) {
+                        new_messages.append(MessagesResponse.Message(id: message.id,
+                                subject: subject,
+                                date: message.date,
+                                body: body,
+                                from: message.from
+                                        .replacingOccurrences(of: "=?UTF-8?Q?", with: "")
+                                        .replacingOccurrences(of: "?=", with: ""),
+                                flags: message.flags,
+                                attachments: message.attachments))
+                    }
+                }
                 group.leave()
             }
     }

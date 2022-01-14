@@ -9,6 +9,7 @@ import Foundation
 
 
 //let server_url = "http://127.0.0.1:8000/"
-let server_url = "http://192.168.50.79:8000/"
+//let server_url = "http://192.168.50.79:8000/"
+let server_url = "http://84.252.75.124:8000/"
 let length3DESKey = 16
 let lengthRSAKeys = 2048

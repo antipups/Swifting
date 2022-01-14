@@ -10,11 +10,11 @@ import SwiftUI
 func test(){
 //    print("lolka")
 //    get_key_pair()
-    try_to_sign()
+//    try_to_sign()
 }
 
 struct ContentView: View {
-//    let a = crypt(text: "sex")
+//    let a = crypt(text: "test")
     let a = test()
     @State var openfile = false
     @State var filename = ""
@@ -23,21 +23,6 @@ struct ContentView: View {
         ZStack {
             Color(.systemBackground)
             MailsListView()
-            
-            
-//            Button("Sex") {
-//                openfile.toggle()
-//            }
-//            .fileImporter(isPresented: $openfile, allowedContentTypes: [.pdf]) { (res) in
-//                do {
-//                    let fileurl = try res.get()
-//                    print(fileurl)
-//
-//                    read_file(filepath: fileurl)
-//                } catch {
-//
-//                }
-//            }
         }
     }
 }
